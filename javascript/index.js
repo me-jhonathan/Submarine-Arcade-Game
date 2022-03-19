@@ -9,5 +9,11 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 // coloring the background
-ctx.fillStyle = "#064273";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+function game() {
+  ctx.fillStyle = "#064273";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+// call 60 times a second
+setInterval(game, 1000 / 60);
