@@ -1,5 +1,6 @@
 import UI from "./UI.js";
 import Submarine from "./Submarine.js";
+import LaserController from "./LaserController.js";
 
 // get canvas from index.html
 const canvas = document.getElementById("Submarine-Game");
@@ -23,13 +24,15 @@ let uiTimer = 0;
 
 // objects
 const ui = new UI(canvas);
+const laserController = new LaserController(canvas);
 const submarine = new Submarine(
   // submarine placement
   canvas.width / 2,
   canvas.height / 1.5,
   canvas.width,
   canvas.height,
-  lives
+  lives,
+  laserController
 );
 
 // check if the user is on a mobile device
@@ -66,7 +69,7 @@ function game() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // show instructions at the start of the game then disappear
-  if (uiTimer < 300) {
+  if (uiTimer < 320) {
     // startmenu();
     ui.startmenu(ctx, checkIfMobile());
   } else {
@@ -74,8 +77,12 @@ function game() {
     console.log("enemy wave start");
   }
 
+  // draw lasers
+  laserController.draw(ctx, canvas.height);
+
   // draw submarine
   submarine.draw(ctx);
+
   // show game interface
   ui.inGameInterface(ctx, score, lives);
 }
