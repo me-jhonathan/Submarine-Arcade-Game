@@ -42,7 +42,7 @@ export default class UI {
         this.canvas.height / 2.7
       );
       ctx.fillText(
-        'Press "right mouse button" to fire ',
+        'Press "left mouse button" to fire ',
         this.canvas.width / 2.5,
         this.canvas.height / 2.5
       );
@@ -50,21 +50,31 @@ export default class UI {
   }
 
   // check if game is over
-  isGameOver(ctx, lives) {
+  isGameOver(ctx, lives, checkIfMobile) {
+    let fontSize = checkIfMobile ? "30px" : "50px";
     let gameOver = false;
     // if no more lives game is over
     if (lives === -1) {
       gameOver = true;
     }
-    // game over screen
-    if (gameOver) {
+    // game over screen if on mobile
+    if (gameOver && checkIfMobile) {
       ctx.fillStyle = "black";
-      ctx.font = "bold 50px Courier New";
+      ctx.font = "bold 30px Courier New";
 
       ctx.fillText(
         "Game Over!",
+        this.canvas.width / 3.5,
+        this.canvas.height / 2.8
+      );
+    } else {
+      // game over screen if on desktop
+      ctx.fillStyle = "white";
+      ctx.font = "bold 50px Courier New";
+      ctx.fillText(
+        "Game Over!",
         this.canvas.width / 2.5,
-        this.canvas.height / 2
+        this.canvas.height / 2.5
       );
     }
     return gameOver;

@@ -1,6 +1,7 @@
 import UI from "./UI.js";
 import Submarine from "./Submarine.js";
 import LaserController from "./LaserController.js";
+import EnemyController from "./EnemyController.js";
 
 // get canvas from index.html
 const canvas = document.getElementById("Submarine-Game");
@@ -34,6 +35,11 @@ const submarine = new Submarine(
   lives,
   laserController
 );
+const enemyController = new EnemyController(
+  canvas,
+  canvas.width,
+  canvas.height
+);
 
 // check if the user is on a mobile device
 function checkIfMobile() {
@@ -52,7 +58,7 @@ function checkIfMobile() {
 function game() {
   uiTimer++;
   // check if game is over
-  if (ui.isGameOver(ctx, lives)) {
+  if (ui.isGameOver(ctx, lives, checkIfMobile())) {
     return;
   }
   // if not on mobile show ocean background
@@ -70,11 +76,10 @@ function game() {
 
   // show instructions at the start of the game then disappear
   if (uiTimer < 320) {
-    // startmenu();
     ui.startmenu(ctx, checkIfMobile());
   } else {
-    // draw enemy
-    console.log("enemy wave start");
+    // draw enemy after instructions
+    enemyController.draw(ctx);
   }
 
   // draw lasers
@@ -83,10 +88,22 @@ function game() {
   // draw submarine
   submarine.draw(ctx);
 
+  // check if enemy is touching submarine
+  enemyCollision();
+
   // show game interface
   ui.inGameInterface(ctx, score, lives);
 }
 
+// check if enemy is touching submarine
+function enemyCollision() {
+  if (enemyController.collisionDetection(submarine)) {
+    // remove one live per hit
+    lives--;
+  }
+}
+
+// draw ocean background
 function oceanBackground() {
   var grade = ctx.createRadialGradient(
     150 + giantBubble,
