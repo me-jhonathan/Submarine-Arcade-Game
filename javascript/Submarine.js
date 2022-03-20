@@ -24,7 +24,8 @@ export default class Submarine {
   drawPlayer(ctx) {
     let base_image = new Image();
     // get the submarine image
-    base_image.src = "./../images/submarine.png";
+    // base_image.src = "./../images/submarine.png";
+    base_image.src = "images/submarine.png";
 
     // start crop from top left coner
     let startCropX = 50;
