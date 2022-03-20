@@ -11,9 +11,17 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-var score = 0;
-var lives = 3;
+// variables to store score and lives
+let score = 0;
+let lives = 3;
 
+// rate of change for background giant bubble
+let giantBubble = 0;
+
+// timer used to show instructions UI
+let uiTimer = 0;
+
+// objects
 const ui = new UI(canvas);
 const submarine = new Submarine(
   // submarine placement
@@ -24,15 +32,74 @@ const submarine = new Submarine(
   lives
 );
 
+// check if the user is on a mobile device
+function checkIfMobile() {
+  if (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// game loop
 function game() {
-  ctx.fillStyle = "#064273";
-  // draw the canvas
+  uiTimer++;
+  // check if game is over
+  if (ui.isGameOver(ctx, lives)) {
+    return;
+  }
+  // if not on mobile show ocean background
+  if (!checkIfMobile()) {
+    // ocean background screen
+    oceanBackground();
+  } else {
+    // if on mobile don't show ocean background for better performance
+    ctx.fillStyle = "#064273";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  // draw default canvas
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // show instructions at the start of the game then disappear
+  if (uiTimer < 300) {
+    // startmenu();
+    ui.startmenu(ctx, checkIfMobile());
+  } else {
+    // draw enemy
+    console.log("enemy wave start");
+  }
 
   // draw submarine
   submarine.draw(ctx);
   // show game interface
   ui.inGameInterface(ctx, score, lives);
+}
+
+function oceanBackground() {
+  var grade = ctx.createRadialGradient(
+    150 + giantBubble,
+    150 + giantBubble,
+    15,
+    400 + giantBubble,
+    400 + giantBubble,
+    400 + giantBubble,
+    150 + giantBubble
+  );
+  // movement speed
+  giantBubble += 0.1;
+  if (giantBubble >= 100000) {
+    giantBubble = 0;
+  }
+  grade.addColorStop(0, "#1da2d8");
+  grade.addColorStop(0.4, "#76b6c4");
+  grade.addColorStop(0.8, "#005493");
+  grade.addColorStop(1, "#064273");
+  ctx.fillStyle = grade;
 }
 
 // call 60 times a second
