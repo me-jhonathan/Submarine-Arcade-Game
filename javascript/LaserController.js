@@ -41,6 +41,18 @@ export default class LaserController {
       laser.draw(ctx);
     });
   }
+
+  // check if submarine laser hit enemy
+  laserToEnemyCollision(enemy) {
+    return this.submarineLaser.some((laser) => {
+      if (laser.laserToOpponentCollision(enemy)) {
+        this.submarineLaser.splice(this.submarineLaser.indexOf(laser), 1);
+        return true;
+      }
+      return false;
+    });
+  }
+
   // if laser is off screen remove it
   isLaserOffScreen(laser) {
     // remove once the lowest part of the laser is off screen

@@ -88,11 +88,27 @@ function game() {
   // draw submarine
   submarine.draw(ctx);
 
+  // check if submarine laser is hitting enemy
+  submarineLaserCollision();
+
   // check if enemy is touching submarine
   enemyCollision();
 
   // show game interface
   ui.inGameInterface(ctx, score, lives);
+}
+
+// check if submarine laser is hitting enemy
+function submarineLaserCollision() {
+  enemyController.enemyArmy.forEach((enemy) => {
+    if (laserController.laserToEnemyCollision(enemy)) {
+      // if enemy health is less than 0 add to score
+      if (enemy.health === 0 && enemy.id == 1) {
+        // if sea mine is destroyed add 100 to score
+        score += 100;
+      }
+    }
+  });
 }
 
 // check if enemy is touching submarine

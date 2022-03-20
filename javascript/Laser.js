@@ -20,4 +20,20 @@ export default class Laser {
 
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
+  // using axis-aligned bounding box to detect collision
+  laserToOpponentCollision(opponent) {
+    if (
+      this.x < opponent.x + opponent.width &&
+      this.x + this.width > opponent.x &&
+      this.y < opponent.y + opponent.height &&
+      this.y + this.height > opponent.y
+    ) {
+      // collision detected!
+      opponent.takeDamage(this.damage);
+      return true;
+    } else {
+      // no collision
+      return false;
+    }
+  }
 }

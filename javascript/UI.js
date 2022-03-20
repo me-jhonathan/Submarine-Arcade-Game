@@ -51,7 +51,6 @@ export default class UI {
 
   // check if game is over
   isGameOver(ctx, lives, checkIfMobile) {
-    let fontSize = checkIfMobile ? "30px" : "50px";
     let gameOver = false;
     // if no more lives game is over
     if (lives === -1) {
@@ -67,8 +66,8 @@ export default class UI {
         this.canvas.width / 3.5,
         this.canvas.height / 2.8
       );
-    } else {
       // game over screen if on desktop
+    } else {
       ctx.fillStyle = "white";
       ctx.font = "bold 50px Courier New";
       ctx.fillText(
