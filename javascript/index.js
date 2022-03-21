@@ -92,7 +92,7 @@ function game() {
   // check if submarine laser is hitting enemy
   submarineLaserCollision();
 
-  // check if enemy is touching submarine
+  // check if enemy is touching submarine or if enemy laser is touching submarine
   enemyCollision();
 
   // show game interface
@@ -102,14 +102,14 @@ function game() {
 // check if submarine laser is hitting enemy
 function submarineLaserCollision() {
   enemyController.enemyArmy.forEach((enemy) => {
-    if (laserController.laserToEnemyCollision(enemy)) {
+    if (laserController.laserCollision(enemy, 1)) {
       // if enemy health is less than 0 add to score
-      if (enemy.health === 0 && enemy.id == 1) {
+      if (enemy.health === 0 && enemy.id == 2) {
         // if sea mine is destroyed add 100 to score
         score += 100;
       }
-      if (enemy.health === 0 && enemy.id == 2) {
-        // if sea mine is destroyed add 100 to score
+      if (enemy.health === 0 && enemy.id == 3) {
+        // if fishy is destroyed add 300 to score
         score += 300;
       }
     }
@@ -118,7 +118,10 @@ function submarineLaserCollision() {
 
 // check if enemy is touching submarine
 function enemyCollision() {
-  if (enemyController.collisionDetection(submarine)) {
+  if (
+    enemyController.collisionDetection(submarine) ||
+    laserController.laserCollision(submarine, 2)
+  ) {
     // remove one live per hit
     lives--;
   }

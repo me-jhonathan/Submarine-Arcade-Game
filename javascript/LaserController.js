@@ -70,11 +70,15 @@ export default class LaserController {
     });
   }
 
-  // check if submarine laser hit enemy
-  laserToEnemyCollision(enemy) {
-    return this.submarineLaser.some((laser) => {
-      if (laser.laserToOpponentCollision(enemy)) {
-        this.submarineLaser.splice(this.submarineLaser.indexOf(laser), 1);
+  // check if laser hit opponent
+  laserCollision(opponent, idOfOpponent) {
+    // get id of who is firing laser
+    let opponentArray =
+      idOfOpponent === 1 ? this.submarineLaser : this.enemyLaser;
+    // if opponent (enemy or submarine) is hit remove laser from array and take damage
+    return opponentArray.some((laser) => {
+      if (laser.laserToOpponentCollision(opponent)) {
+        opponentArray.splice(opponentArray.indexOf(laser), 1);
         return true;
       }
       return false;

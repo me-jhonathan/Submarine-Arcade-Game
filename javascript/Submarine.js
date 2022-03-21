@@ -117,4 +117,7 @@ export default class Submarine {
     e.preventDefault();
     this.fire = false;
   };
+  takeDamage(damage) {
+    this.lives -= damage;
+  }
 }

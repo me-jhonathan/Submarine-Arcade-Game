@@ -43,7 +43,7 @@ export default class EnemyController {
     if (this.timerForSeaMine <= 0) {
       this.enemyArmy.push(
         new SeaMine(
-          1, // id
+          2, // id
           enemyXpos, // x position
           -55 // y position
         )
@@ -53,7 +53,7 @@ export default class EnemyController {
     if (this.timerForfishy <= 0 && score >= 300) {
       this.enemyArmy.push(
         new Fishy(
-          2, // id
+          3, // id
           enemyXpos, // x position
           -75, // y position
           this.laserController
