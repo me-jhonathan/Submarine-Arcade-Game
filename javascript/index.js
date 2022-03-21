@@ -96,7 +96,7 @@ function game() {
   enemyCollision();
 
   // show game interface
-  ui.inGameInterface(ctx, score, lives);
+  ui.inGameInterface(ctx, score, lives, checkIfMobile());
 }
 
 // check if submarine laser is hitting enemy

@@ -3,16 +3,31 @@ export default class UI {
     this.canvas = canvas;
   }
   // show game interface
-  inGameInterface(ctx, score, lives) {
-    // score UI
-    ctx.fillStyle = "white";
-    ctx.font = "bold 20px Courier New";
-    ctx.fillText("Score: " + score, this.canvas.width / 1.5, 25);
+  inGameInterface(ctx, score, lives, checkIfMobile) {
+    // show game interface if on mobile
+    if (checkIfMobile) {
+      // score UI
+      ctx.fillStyle = "white";
+      ctx.font = "bold 20px Courier New";
+      ctx.fillText("Score: " + score, this.canvas.width / 1.8, 25);
 
-    // Lives UI
-    ctx.fillStyle = "white";
-    ctx.font = "bold 20px Courier New";
-    ctx.fillText("Lives: " + lives, this.canvas.width / 8.5, 25);
+      // Lives UI
+      ctx.fillStyle = "white";
+      ctx.font = "bold 20px Courier New";
+      ctx.fillText("Lives: " + lives, this.canvas.width / 8.5, 25);
+
+      // show game interface if on desktop
+    } else {
+      // score UI
+      ctx.fillStyle = "white";
+      ctx.font = "bold 35px Courier New";
+      ctx.fillText("Score: " + score, this.canvas.width / 1.5, 35);
+
+      // Lives UI
+      ctx.fillStyle = "white";
+      ctx.font = "bold 35px Courier New";
+      ctx.fillText("Lives: " + lives, this.canvas.width / 6, 35);
+    }
   }
 
   // show instructions at the start of the game

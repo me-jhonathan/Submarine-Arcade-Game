@@ -37,7 +37,7 @@ export default class LaserController {
     const id = 2;
     const speed = 4;
     const damage = 1;
-    const nextShot = 80;
+    const nextShot = 95;
     const width = 6;
     const height = 10;
     if (this.fishyLaserTimer <= 0) {
