@@ -1,20 +1,24 @@
 import SeaMine from "./SeaMine.js";
+import Fishy from "./Fishy.js";
 
 export default class EnemyController {
   // will hold the enemies
   enemyArmy = [];
 
-  // timer for next sea mine spawn
+  // timers for next enemy spawn
   timerForSeaMine = 0;
-  constructor(canvas, width, height) {
+  timerForfishy = 0;
+
+  constructor(canvas, width, height, laserController) {
     this.canvas = canvas;
     this.canvasWidth = width;
     this.canvasHeight = height;
+    this.laserController = laserController;
   }
 
   //movement for enemy
-  draw(cxt) {
-    this.respawn();
+  draw(cxt, score) {
+    this.respawn(score);
     this.enemyArmy.forEach((enemy) => {
       // if enemy health is 0 or enemy is off screen remove
       if (enemy.health <= 0 || this.offScreen(enemy)) {
@@ -27,26 +31,39 @@ export default class EnemyController {
       }
     });
   }
-  respawn() {
-    // spawn timer
+  respawn(score) {
+    // time til next enemy
     const seaMineDelay = Math.floor(Math.random() * (440 - 360) + 360);
+    const fishyDelay = Math.floor(Math.random() * (550 - 410) + 410);
 
     // set a range of where a sea mine can spawn
     let minX = 60;
     let maxX = this.canvasWidth - 50;
-    let xPosSeaMine = Math.floor(Math.random() * (maxX - minX) + minX);
+    let enemyXpos = Math.floor(Math.random() * (maxX - minX) + minX);
     if (this.timerForSeaMine <= 0) {
       this.enemyArmy.push(
         new SeaMine(
           1, // id
-          xPosSeaMine, // x position
+          enemyXpos, // x position
           -55 // y position
         )
       );
       this.timerForSeaMine = seaMineDelay;
     }
+    if (this.timerForfishy <= 0 && score >= 300) {
+      this.enemyArmy.push(
+        new Fishy(
+          2, // id
+          enemyXpos, // x position
+          -75, // y position
+          this.laserController
+        )
+      );
+      this.timerForfishy = fishyDelay;
+    }
 
     this.timerForSeaMine--;
+    this.timerForfishy--;
   }
   // check if submarine touches enemy
   collisionDetection(submarine) {
@@ -57,7 +74,7 @@ export default class EnemyController {
         submarine.y < enemy.y + enemy.height &&
         submarine.y + submarine.height > enemy.y
       ) {
-        enemy.seaMineHitRebound();
+        enemy.enemyHitRebound();
         return true;
       }
       return false;

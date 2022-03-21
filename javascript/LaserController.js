@@ -1,43 +1,71 @@
 import Laser from "./Laser.js";
 
 export default class LaserController {
-  // submarine lasers
+  // hold lasers
   submarineLaser = [];
+  enemyLaser = [];
 
-  // countdown for next laser
-  palyerLaserTimer = 0;
+  // countdown timers for next laser
+  submarineLaserTimer = 0;
+  fishyLaserTimer = 0;
 
   constructor(canvas, height) {
     this.canvas = canvas;
     this.height = height;
   }
 
-  // fire laser
+  // fire laser for submarine
   fireLaserSubmarine(x, y) {
     // properties of submarine laser
-    let id = 1;
-    let speed = 5;
-    let damage = 1;
-    let nextShot = 14;
-    let width = 5;
-    let height = 15;
-    if (this.palyerLaserTimer <= 0) {
+    const id = 1;
+    const speed = 4;
+    const damage = 1;
+    const nextShot = 16;
+    const width = 6;
+    const height = 14;
+    if (this.submarineLaserTimer <= 0) {
       this.submarineLaser.push(
         new Laser(id, x, y - 22, width, height, speed, damage, "red")
       );
-      this.palyerLaserTimer = nextShot;
+      this.submarineLaserTimer = nextShot;
     }
-    this.palyerLaserTimer--;
+    this.submarineLaserTimer--;
+  }
+  // fire laser for fishy
+  fireLaserFishy(x, y) {
+    // properties of fishy laser
+    const id = 2;
+    const speed = 4;
+    const damage = 1;
+    const nextShot = 80;
+    const width = 6;
+    const height = 10;
+    if (this.fishyLaserTimer <= 0) {
+      this.enemyLaser.push(
+        new Laser(id, x, y + 80, width, height, speed, damage, "yellow")
+      );
+      this.fishyLaserTimer = nextShot;
+    }
+    this.fishyLaserTimer--;
   }
 
   draw(ctx) {
     this.submarineLaser.forEach((laser) => {
       // remove lasers that go off screen
-      if (this.isLaserOffScreen(laser)) {
+      if (this.isSubmarineLaserOffScreen(laser)) {
         const index = this.submarineLaser.indexOf(laser);
         this.submarineLaser.splice(index, 1);
       }
       // draw lasers
+      laser.draw(ctx);
+    });
+    this.enemyLaser.forEach((laser) => {
+      // remove lasers that go off screen
+      if (this.isEnemyLaserOffScreen(laser)) {
+        const index = this.enemyLaser.indexOf(laser);
+        this.enemyLaser.splice(index, 1);
+      }
+      // draw laser
       laser.draw(ctx);
     });
   }
@@ -54,8 +82,12 @@ export default class LaserController {
   }
 
   // if laser is off screen remove it
-  isLaserOffScreen(laser) {
+  isSubmarineLaserOffScreen(laser) {
     // remove once the lowest part of the laser is off screen
     return laser.y <= -laser.height;
+  }
+  isEnemyLaserOffScreen(laser) {
+    // remove once the highest part of the laser is off screen
+    return laser.y >= this.canvas.height;
   }
 }

@@ -15,7 +15,13 @@ export default class Laser {
     ctx.fillStyle = this.color;
     // if player is shooting
     if (this.id == 1) {
+      // laser moves upwards
       this.y -= this.speed;
+    }
+    // if enemy is shooting
+    if (this.id == 2) {
+      // laser moves downwards
+      this.y += this.speed;
     }
 
     ctx.fillRect(this.x, this.y, this.width, this.height);

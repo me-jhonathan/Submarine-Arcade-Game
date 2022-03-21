@@ -81,7 +81,7 @@ export default class SeaMine {
     this.health -= damage;
   }
   // if player touches sea mine send sea mine back and take damage
-  seaMineHitRebound() {
+  enemyHitRebound() {
     this.y -= 60;
     this.takeDamage(1);
   }

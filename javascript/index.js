@@ -38,7 +38,8 @@ const submarine = new Submarine(
 const enemyController = new EnemyController(
   canvas,
   canvas.width,
-  canvas.height
+  canvas.height,
+  laserController
 );
 
 // check if the user is on a mobile device
@@ -79,7 +80,7 @@ function game() {
     ui.startmenu(ctx, checkIfMobile());
   } else {
     // draw enemy after instructions
-    enemyController.draw(ctx);
+    enemyController.draw(ctx, score);
   }
 
   // draw lasers
@@ -106,6 +107,10 @@ function submarineLaserCollision() {
       if (enemy.health === 0 && enemy.id == 1) {
         // if sea mine is destroyed add 100 to score
         score += 100;
+      }
+      if (enemy.health === 0 && enemy.id == 2) {
+        // if sea mine is destroyed add 100 to score
+        score += 300;
       }
     }
   });

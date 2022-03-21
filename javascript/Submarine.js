@@ -77,7 +77,6 @@ export default class Submarine {
   }
   // player movement - follow the mouse
   mousemove = (e) => {
-    // this.x = e.x - this.width / 2;
     if ((this.x = e.x - this.width / 2)) {
       this.submarineAnimation();
     }
