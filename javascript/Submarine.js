@@ -100,6 +100,7 @@ export default class Submarine {
     e.preventDefault();
     this.x = e.touches[0].clientX - this.width / 2;
     this.y = e.touches[0].clientY - this.height / 2;
+    this.fire = true;
   };
   // follow user's touch and fire
   touchmove = (e) => {

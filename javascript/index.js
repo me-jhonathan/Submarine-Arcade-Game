@@ -2,6 +2,7 @@ import UI from "./UI.js";
 import Submarine from "./Submarine.js";
 import LaserController from "./LaserController.js";
 import EnemyController from "./EnemyController.js";
+import ParticlesController from "./ParticlesController.js";
 
 // get canvas from index.html
 const canvas = document.getElementById("Submarine-Game");
@@ -26,6 +27,7 @@ let uiTimer = 0;
 // objects
 const ui = new UI(canvas);
 const laserController = new LaserController(canvas);
+const particlesController = new ParticlesController(canvas);
 const submarine = new Submarine(
   // submarine placement
   canvas.width / 2,
@@ -72,6 +74,9 @@ function game() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
+  // draw bubbles in the background
+  particlesController.backgroundbubbles(canvas.width, canvas.height);
+
   // draw default canvas
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -88,6 +93,9 @@ function game() {
 
   // draw submarine
   submarine.draw(ctx);
+
+  // draw particles
+  particlesController.draw(ctx);
 
   // check if submarine laser is hitting enemy
   submarineLaserCollision();
