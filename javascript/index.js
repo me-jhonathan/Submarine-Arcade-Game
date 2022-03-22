@@ -95,9 +95,9 @@ function game() {
   submarine.draw(ctx);
 
   // if not on mobile draw normal amount of bubbles
-  if (!checkIfMobile) {
-    // draw bubbles in the background
+  if (!checkIfMobile()) {
     particlesController.backgroundbubbles(canvas.width, canvas.height);
+    // draw bubbles in the background
     // if on mobile make less bubbles for better performance
   } else {
     if (mobileBubbleTimer >= 10) {
