@@ -24,6 +24,9 @@ let giantBubble = 0;
 // timer used to show instructions UI
 let uiTimer = 0;
 
+// timer used for making less bubbles if on mobile for better performance
+let mobileBubbleTimer = 0;
+
 // objects
 const ui = new UI(canvas);
 const laserController = new LaserController(canvas);
@@ -74,9 +77,6 @@ function game() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
-  // draw bubbles in the background
-  particlesController.backgroundbubbles(canvas.width, canvas.height);
-
   // draw default canvas
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -93,6 +93,21 @@ function game() {
 
   // draw submarine
   submarine.draw(ctx);
+
+  // if not on mobile draw normal amount of bubbles
+  if (!checkIfMobile) {
+    // draw bubbles in the background
+    particlesController.backgroundbubbles(canvas.width, canvas.height);
+    // if on mobile make less bubbles for better performance
+  } else {
+    if (mobileBubbleTimer >= 10) {
+      particlesController.backgroundbubbles(canvas.width, canvas.height);
+      mobileBubbleTimer = 0;
+    }
+  }
+
+  // timer for next bubble cycle on mobile
+  mobileBubbleTimer++;
 
   // draw particles
   particlesController.draw(ctx);
