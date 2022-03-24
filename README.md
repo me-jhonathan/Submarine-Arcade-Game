@@ -1,4 +1,4 @@
-Try it live at: https://me-jhonathan.github.io/Submarine-Arcade-Game/\
+Try it live at: https://me-jhonathan.github.io/Submarine-Arcade-Game/  
 
 
 This is a submarine arcade-like shooter. I made the art for the characters and built the game using HTML, CSS, and JavaScript. 
