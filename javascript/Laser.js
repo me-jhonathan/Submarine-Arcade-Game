@@ -19,7 +19,7 @@ export default class Laser {
       this.y -= this.speed;
     }
     // if enemy is shooting
-    if (this.id == 2) {
+    if (this.id == 3 || this.id == 4) {
       // laser moves downwards
       this.y += this.speed;
     }

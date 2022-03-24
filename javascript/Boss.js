@@ -1,4 +1,4 @@
-export default class Fishy {
+export default class Boss {
   // timer for frames
   framesTimer = 0;
   constructor(id, x, y, laserController) {
@@ -6,14 +6,14 @@ export default class Fishy {
     this.x = x;
     this.y = y;
     this.laserController = laserController;
-    this.health = 5;
-    this.width = 70;
-    this.height = 70;
+    this.health = 20;
+    this.width = 150;
+    this.height = 150;
     this.frames = 1;
     // used for tracing submarine
     this.playerX = 0;
     this.moving = false;
-    // fishy will trace submarine
+    // boss will trace submarine
     document.addEventListener("mousemove", this.mousemove);
     document.addEventListener("touchstart", this.touchmove);
     document.addEventListener("touchmove", this.touchmove);
@@ -21,24 +21,24 @@ export default class Fishy {
 
   draw(ctx) {
     this.move();
-    // draw fishy
-    this.drawFishy(ctx);
+    // draw boss
+    this.drawBoss(ctx);
 
     this.fireLaser();
   }
-  // draw fishy and animation
-  drawFishy(ctx) {
+  // draw boss and animation
+  drawBoss(ctx) {
     let base_image = new Image();
-    base_image.src = "images/fishy.png";
+    base_image.src = "images/boss.png";
     // start crop from top left coner
-    let startCropX = 70;
+    let startCropX = 150;
     let startCropY = 0;
     // crop to width of the original image
-    let toCropWidth = 70;
+    let toCropWidth = 150;
     // crop to height of the original image
-    let toCropHeight = 70;
+    let toCropHeight = 150;
 
-    // add the fishy sprite
+    // add the boss sprite
     ctx.drawImage(
       base_image,
       startCropX * this.frames,
@@ -47,8 +47,8 @@ export default class Fishy {
       toCropHeight,
       this.x,
       this.y,
-      70,
-      70
+      150,
+      150
     );
 
     base_image.onload = function () {};
@@ -56,7 +56,7 @@ export default class Fishy {
   // follow the mouse
   mousemove = (e) => {
     if (e.x) {
-      this.playerX = e.x - this.width / 2;
+      this.playerX = e.x;
       // player is moving
       this.moving = true;
     } else {
@@ -84,40 +84,39 @@ export default class Fishy {
     }
   };
 
-  // fishy will constantly move down and follow player if player is moving
+  // boss will constantly move down and follow player slowly if player is moving
   move() {
     const delay = 4;
-    this.y += 1;
-    // change frames on fishy sprite with slow down
+    this.y += 0.5;
+    // change frames on boss sprite with slow down
     if (this.framesTimer <= 0) {
       this.frames += 1;
       this.framesTimer = delay;
-      if (this.frames >= 12) {
+      if (this.frames >= 11) {
         this.frames = 1;
       }
     }
     this.framesTimer--;
     let dx = this.playerX - this.x;
-    // if player is moving submarine fishy will move towards player
+    // if player is moving submarine boss will move towards player slowly
     if (this.moving) {
-      this.x += dx / 100;
+      this.x += dx / 700;
     }
   }
-
   fireLaser() {
-    // laser will come out of the center and under fishy
+    // laser will come out of the center and under boss
     const laserX = this.x - 1 + this.width / 2;
     const laserY = this.y;
 
     // send x and y position to laser controller
-    this.laserController.fireLaserFishy(laserX, laserY);
+    this.laserController.fireLaserBoss(laserX, laserY);
   }
   takeDamage(damage) {
     this.health -= damage;
   }
-  // if player touches fishy send fishy back and take damage
+  // if player touches fishy send boss back and take damage
   enemyHitRebound() {
-    this.y -= 55;
+    this.y -= 50;
     this.takeDamage(1);
   }
 }

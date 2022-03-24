@@ -1,5 +1,6 @@
 import SeaMine from "./SeaMine.js";
 import Fishy from "./Fishy.js";
+import Boss from "./Boss.js";
 
 export default class EnemyController {
   // will hold the enemies
@@ -8,6 +9,7 @@ export default class EnemyController {
   // timers for next enemy spawn
   timerForSeaMine = 0;
   timerForfishy = 0;
+  timerForBoss = 0;
 
   constructor(canvas, width, height, laserController) {
     this.canvas = canvas;
@@ -35,6 +37,7 @@ export default class EnemyController {
     // time til next enemy
     const seaMineDelay = Math.floor(Math.random() * (440 - 360) + 360);
     const fishyDelay = Math.floor(Math.random() * (550 - 410) + 410);
+    const bossDelay = Math.floor(Math.random() * (2500 - 2300) + 2300);
 
     // set a range of where a sea mine can spawn
     let minX = 60;
@@ -61,9 +64,21 @@ export default class EnemyController {
       );
       this.timerForfishy = fishyDelay;
     }
+    if (this.timerForBoss <= 0 && score >= 900) {
+      this.enemyArmy.push(
+        new Boss(
+          4, // id
+          this.canvasWidth / 2, // x position
+          -175, // y position
+          this.laserController
+        )
+      );
+      this.timerForBoss = bossDelay;
+    }
 
     this.timerForSeaMine--;
     this.timerForfishy--;
+    this.timerForBoss--;
   }
   // check if submarine touches enemy
   collisionDetection(submarine) {
