@@ -6,6 +6,16 @@ export default class ParticlesController {
   }
   // will hold the particles
   particlesArray = [];
+  colorsSeaMine = ["red", "#686868", "#680000"];
+  colorsFishy = [
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "greenyellow",
+    "indigo",
+    "violet",
+  ];
 
   draw(ctx) {
     this.particlesArray.forEach((particle) => {
@@ -20,6 +30,44 @@ export default class ParticlesController {
         particle.draw(ctx);
       }
     });
+  }
+
+  // if sea mine is destroyed use these properties
+  seaMine(x, y, width, height) {
+    for (let i = 0; i < 13; i++) {
+      this.particlesArray.push(
+        new Particles(
+          x + width / 2, // x
+          y + height / 2, // y
+          2, // spread speed
+          Math.random() - 0.5, // speedX
+          Math.random() - 0.5, // speedY
+          Math.random() * 3, // radius
+          0.01, // fade rate
+          this.colorsSeaMine[ // color
+            Math.floor(Math.random() * this.colorsSeaMine.length)
+          ]
+        )
+      );
+    }
+  }
+
+  // if the fishy is destroyed use these properties
+  fishy(x, y, width, height) {
+    for (let i = 0; i < 17; i++) {
+      this.particlesArray.push(
+        new Particles(
+          x + width / 2,
+          y + height / 2,
+          5, // spread speed
+          Math.random() - 0.5, // speedX
+          Math.random() - 0.5, // speedY
+          Math.random() * 4, // radius
+          0.008, // fade rate
+          this.colorsFishy[Math.floor(Math.random() * this.colorsFishy.length)] // color
+        )
+      );
+    }
   }
 
   // background bubbles

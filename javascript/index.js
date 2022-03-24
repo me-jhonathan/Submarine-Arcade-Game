@@ -96,8 +96,8 @@ function game() {
 
   // if not on mobile draw normal amount of bubbles
   if (!checkIfMobile()) {
-    particlesController.backgroundbubbles(canvas.width, canvas.height);
     // draw bubbles in the background
+    particlesController.backgroundbubbles(canvas.width, canvas.height);
     // if on mobile make less bubbles for better performance
   } else {
     if (mobileBubbleTimer >= 10) {
@@ -128,10 +128,17 @@ function submarineLaserCollision() {
     if (laserController.laserCollision(enemy, 1)) {
       // if enemy health is less than 0 add to score
       if (enemy.health === 0 && enemy.id == 2) {
+        particlesController.seaMine(
+          enemy.x,
+          enemy.y,
+          enemy.width,
+          enemy.height
+        );
         // if sea mine is destroyed add 100 to score
         score += 100;
       }
       if (enemy.health === 0 && enemy.id == 3) {
+        particlesController.fishy(enemy.x, enemy.y, enemy.width, enemy.height);
         // if fishy is destroyed add 300 to score
         score += 300;
       }
