@@ -16,6 +16,15 @@ export default class ParticlesController {
     "indigo",
     "violet",
   ];
+  colorsBoss = [
+    "red",
+    "orange",
+    "yellow",
+    "blue",
+    "greenyellow",
+    "indigo",
+    "violet",
+  ];
 
   draw(ctx) {
     this.particlesArray.forEach((particle) => {
@@ -65,6 +74,25 @@ export default class ParticlesController {
           Math.random() * 4, // radius
           0.008, // fade rate
           this.colorsFishy[Math.floor(Math.random() * this.colorsFishy.length)] // color
+        )
+      );
+    }
+  }
+  // if boss is destroyed use these properties
+  boss(x, y, width, height) {
+    for (let i = 0; i < 120; i++) {
+      this.particlesArray.push(
+        new Particles(
+          x + width / 2,
+          y + height / 2,
+          15, // spread speed
+          Math.random() - 0.5, // speedX
+          Math.random() - 0.5, // speedY
+          Math.random() * 9, // radius
+          0.008, // fade rate
+          this.colorsBoss[ // color
+            Math.floor(Math.random() * this.colorsBoss.length) // color
+          ]
         )
       );
     }

@@ -56,7 +56,7 @@ export default class Boss {
   // follow the mouse
   mousemove = (e) => {
     if (e.x) {
-      this.playerX = e.x;
+      this.playerX = e.x - this.width / 2;
       // player is moving
       this.moving = true;
     } else {

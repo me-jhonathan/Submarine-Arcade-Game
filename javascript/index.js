@@ -142,6 +142,11 @@ function submarineLaserCollision() {
         // if fishy is destroyed add 300 to score
         score += 300;
       }
+      if (enemy.health === 0 && enemy.id == 4) {
+        particlesController.boss(enemy.x, enemy.y, enemy.width, enemy.height);
+        // if boss is destroyed add 800 to score
+        score += 800;
+      }
     }
   });
 }
