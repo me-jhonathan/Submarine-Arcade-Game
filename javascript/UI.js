@@ -1,6 +1,8 @@
 export default class UI {
   constructor(canvas) {
     this.canvas = canvas;
+    // check if game is over
+    this.gameOver = false;
   }
   // show game interface
   inGameInterface(ctx, score, lives, checkIfMobile) {
@@ -64,15 +66,15 @@ export default class UI {
     }
   }
 
-  // check if game is over
   isGameOver(ctx, lives, checkIfMobile) {
-    let gameOver = false;
     // if no more lives game is over
-    if (lives === -1) {
-      gameOver = true;
+    if (lives === 0) {
+      setTimeout(() => {
+        this.gameOver = true;
+      }, 800);
     }
     // game over screen if on mobile
-    if (gameOver && checkIfMobile) {
+    if (this.gameOver && checkIfMobile) {
       ctx.fillStyle = "black";
       ctx.font = "bold 30px Courier New";
 
@@ -91,6 +93,6 @@ export default class UI {
         this.canvas.height / 2.5
       );
     }
-    return gameOver;
+    return this.gameOver;
   }
 }
