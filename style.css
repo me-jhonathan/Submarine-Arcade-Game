@@ -5,3 +5,19 @@ body {
   flex-direction: column;
   align-items: center;
 }
+.restartBtn {
+  position: fixed;
+  text-align: center;
+  top: 42%;
+  display: flex;
+  background-color: blue;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 15px 32px;
+  font-size: 16px;
+}
+.restartBtn:hover {
+  background-color: blueviolet;
+  color: white;
+}

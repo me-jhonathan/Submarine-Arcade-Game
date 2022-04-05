@@ -75,7 +75,7 @@ export default class UI {
     }
     // game over screen if on mobile
     if (this.gameOver && checkIfMobile) {
-      ctx.fillStyle = "black";
+      ctx.fillStyle = "white";
       ctx.font = "bold 30px Courier New";
 
       ctx.fillText(

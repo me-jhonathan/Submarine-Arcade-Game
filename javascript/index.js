@@ -7,6 +7,9 @@ import ParticlesController from "./ParticlesController.js";
 // get canvas from index.html
 const canvas = document.getElementById("Submarine-Game");
 
+// get restart button from index.html
+const restartBtn = document.querySelector("#restartBtn");
+
 // get context used for drawing
 const ctx = canvas.getContext("2d");
 
@@ -28,10 +31,10 @@ let uiTimer = 0;
 let mobileBubbleTimer = 0;
 
 // objects
-const ui = new UI(canvas);
-const laserController = new LaserController(canvas);
-const particlesController = new ParticlesController(canvas);
-const submarine = new Submarine(
+let ui = new UI(canvas);
+let laserController = new LaserController(canvas);
+let particlesController = new ParticlesController(canvas);
+let submarine = new Submarine(
   // submarine placement
   canvas.width / 2,
   canvas.height / 1.5,
@@ -40,7 +43,7 @@ const submarine = new Submarine(
   lives,
   laserController
 );
-const enemyController = new EnemyController(
+let enemyController = new EnemyController(
   canvas,
   canvas.width,
   canvas.height,
@@ -62,9 +65,15 @@ function checkIfMobile() {
 
 // game loop
 function game() {
+  // hide restart button
+  restartBtn.style.display = "none";
   uiTimer++;
   // check if game is over
   if (ui.isGameOver(ctx, lives, checkIfMobile())) {
+    // show restart button
+    restartBtn.style.display = "flex";
+
+    // get out of gameloop
     return;
   }
   // if not on mobile show ocean background
@@ -192,6 +201,40 @@ function oceanBackground() {
   grade.addColorStop(1, "#064273");
   ctx.fillStyle = grade;
 }
+
+// reset game objects and reset lives and score
+function restartGame() {
+  lives = 3;
+  score = 0;
+  ui = new UI(canvas);
+  laserController = new LaserController(canvas);
+  particlesController = new ParticlesController(canvas);
+  submarine = new Submarine(
+    // submarine placement
+    canvas.width / 2.1,
+    canvas.height / 2.2,
+    canvas.width,
+    canvas.height,
+    lives,
+    laserController
+  );
+  enemyController = new EnemyController(
+    canvas,
+    canvas.width,
+    canvas.height,
+    laserController
+  );
+}
+
+// if user clicks on 'restart' button call restart game
+restartBtn.addEventListener("click", (e) => {
+  restartGame();
+});
+
+// if user taps on 'restart' button call restart game
+restartBtn.addEventListener("touchstart", (e) => {
+  restartGame();
+});
 
 // call 60 times a second
 setInterval(game, 1000 / 60);
