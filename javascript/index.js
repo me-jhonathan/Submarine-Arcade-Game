@@ -159,6 +159,14 @@ function enemyCollision() {
   ) {
     // remove one live per hit
     lives--;
+    particlesController.submarine(
+      submarine.x,
+      submarine.y,
+      submarine.width,
+      submarine.height,
+      // if submarine losses bigger explosion
+      lives == 0 ? 10 : 1
+    );
   }
 }
 

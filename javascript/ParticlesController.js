@@ -97,6 +97,23 @@ export default class ParticlesController {
       );
     }
   }
+  // if submarine is destroyed use these properties
+  submarine(x, y, width, height, submarineDie) {
+    for (let i = 0; i < 10 * submarineDie; i++) {
+      this.particlesArray.push(
+        new Particles(
+          x + width / 2,
+          y + height / 2,
+          5 * submarineDie, // spread speed
+          Math.random() - 0.5, // speedX
+          Math.random() - 0.5, // speedY
+          Math.random() * 3 * submarineDie, // radius
+          0.007, // fade rate
+          this.colorsFishy[Math.floor(Math.random() * this.colorsFishy.length)] // color
+        )
+      );
+    }
+  }
 
   // background bubbles
   backgroundbubbles(width, height) {
