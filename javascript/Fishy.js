@@ -52,7 +52,25 @@ export default class Fishy {
     );
 
     base_image.onload = function () {};
+
+    // if health low show player
+    if (this.health < 3) {
+      this.damagedFishy(ctx);
+    }
   }
+
+  // indicator for damage
+  damagedFishy(ctx) {
+    // Save the default state
+    ctx.save();
+    ctx.globalAlpha = 0.2;
+    let base_image_damaged = new Image();
+    base_image_damaged.src = "images/fishy_damaged.png";
+    // add the fishy damaged
+    ctx.drawImage(base_image_damaged, this.x, this.y, this.width, this.height);
+    ctx.restore();
+  }
+
   // follow the mouse
   mousemove = (e) => {
     if (e.x) {

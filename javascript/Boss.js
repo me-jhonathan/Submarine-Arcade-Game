@@ -52,7 +52,26 @@ export default class Boss {
     );
 
     base_image.onload = function () {};
+
+    // if health low show player
+    if (this.health < 10) {
+      this.damagedBoss(ctx);
+    }
   }
+
+  // indicator for damage
+  damagedBoss(ctx) {
+    // Save the default state
+    ctx.save();
+    // if health is < 10 show 20% red if health < 5 show 40% red
+    this.health < 5 ? (ctx.globalAlpha = 0.4) : (ctx.globalAlpha = 0.2);
+    let base_image_damaged = new Image();
+    base_image_damaged.src = "images/boss_damaged.png";
+    // add the boss damaged
+    ctx.drawImage(base_image_damaged, this.x, this.y, this.width, this.height);
+    ctx.restore();
+  }
+
   // follow the mouse
   mousemove = (e) => {
     if (e.x) {
