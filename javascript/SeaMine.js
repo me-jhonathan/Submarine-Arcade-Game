@@ -45,6 +45,31 @@ export default class SeaMine {
     );
 
     base_image.onload = function () {};
+    // if health low show player
+    if (this.health < 2) {
+      this.damagedSeaMine(ctx);
+    }
+  }
+
+  // indicator for damage
+  damagedSeaMine(ctx) {
+    // Save the default state
+    ctx.save();
+    ctx.globalAlpha = 0.2;
+    // set the color
+    ctx.fillStyle = "red";
+    ctx.beginPath();
+    ctx.arc(
+      this.x + this.width / 2 + 4.1,
+      this.y + this.height / 2 + 7.5,
+      25,
+      0,
+      Math.PI * 2
+    );
+    ctx.closePath();
+    ctx.fill();
+    // restore the default state
+    ctx.restore();
   }
 
   move() {
