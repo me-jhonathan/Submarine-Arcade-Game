@@ -166,8 +166,10 @@ function enemyCollision() {
     enemyController.collisionDetection(submarine) ||
     laserController.laserCollision(submarine, 2)
   ) {
-    // remove one live per hit
-    lives--;
+    // remove one live per hit and make sure lives don't go under 0
+    if (--lives < 0) {
+      lives = 0;
+    }
     particlesController.submarine(
       submarine.x,
       submarine.y,
