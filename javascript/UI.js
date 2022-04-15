@@ -81,7 +81,7 @@ export default class UI {
       ctx.fillText(
         "Game Over!",
         this.canvas.width / 3.5,
-        this.canvas.height / 2.8
+        this.canvas.height / 3.2
       );
       // game over screen if on desktop
     } else {
@@ -89,8 +89,8 @@ export default class UI {
       ctx.font = "bold 50px Courier New";
       ctx.fillText(
         "Game Over!",
-        this.canvas.width / 2.5,
-        this.canvas.height / 2.5
+        this.canvas.width / 2.35,
+        this.canvas.height / 3.5
       );
     }
     return this.gameOver;

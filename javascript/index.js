@@ -7,8 +7,13 @@ import ParticlesController from "./ParticlesController.js";
 // get canvas from index.html
 const canvas = document.getElementById("Submarine-Game");
 
-// get restart button from index.html
+// get restart button/text from index.html
 const restartBtn = document.querySelector("#restartBtn");
+const restartText = document.querySelector("#restartText");
+
+// hide restart button/text
+restartBtn.style.display = "none";
+restartText.style.display = "none";
 
 // get context used for drawing
 const ctx = canvas.getContext("2d");
@@ -65,13 +70,12 @@ function checkIfMobile() {
 
 // game loop
 function game() {
-  // hide restart button
-  restartBtn.style.display = "none";
   uiTimer++;
   // check if game is over
   if (ui.isGameOver(ctx, lives, checkIfMobile())) {
-    // show restart button
+    // show restart button/text
     restartBtn.style.display = "flex";
+    restartText.style.display = "flex";
 
     // get out of gameloop
     return;
@@ -226,15 +230,24 @@ function restartGame() {
     canvas.height,
     laserController
   );
+  // hide restart button/text
+  restartBtn.style.display = "none";
+  restartText.style.display = "none";
 }
 
 // if user clicks on 'restart' button call restart game
 restartBtn.addEventListener("click", (e) => {
   restartGame();
 });
+restartText.addEventListener("click", (e) => {
+  restartGame();
+});
 
 // if user taps on 'restart' button call restart game
 restartBtn.addEventListener("touchstart", (e) => {
+  restartGame();
+});
+restartText.addEventListener("touchstart", (e) => {
   restartGame();
 });
 
