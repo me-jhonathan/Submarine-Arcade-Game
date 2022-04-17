@@ -22,8 +22,9 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// variables to store score and lives
+// variables to store score, high score, and lives
 let score = 0;
+let highScore = 0;
 let lives = 3;
 
 // rate of change for background giant bubble
@@ -211,6 +212,13 @@ function oceanBackground() {
 // reset game objects and reset lives and score
 function restartGame() {
   lives = 3;
+
+  // store the high score
+  if (score > highScore) {
+    highScore = score;
+  }
+
+  // zero out score for next game
   score = 0;
   ui = new UI(canvas);
   laserController = new LaserController(canvas);
