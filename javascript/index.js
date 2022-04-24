@@ -9,11 +9,18 @@ const canvas = document.getElementById("Submarine-Game");
 
 // get restart button/text from index.html
 const restartBtn = document.querySelector("#restartBtn");
-const restartText = document.querySelector("#restartText");
+const endScreen = document.querySelector("#endScreen");
+
+const endScreenBlob = document.querySelector("#endScreenBlob");
+
+// show user their score at the end
+const userScore = document.querySelector("#userScore");
+const userHighScore = document.querySelector("#highScore");
 
 // hide restart button/text
 restartBtn.style.display = "none";
-restartText.style.display = "none";
+endScreen.style.display = "none";
+endScreenBlob.style.display = "none";
 
 // get context used for drawing
 const ctx = canvas.getContext("2d");
@@ -76,7 +83,14 @@ function game() {
   if (ui.isGameOver(ctx, lives, checkIfMobile())) {
     // show restart button/text
     restartBtn.style.display = "flex";
-    restartText.style.display = "flex";
+    endScreen.style.display = "flex";
+    endScreenBlob.style.display = "flex";
+    // show user their score
+    userScore.innerHTML = score;
+    // show user their high score
+    highScore == 0
+      ? (userHighScore.innerHTML = score)
+      : (userHighScore.innerHTML = highScore);
 
     // get out of gameloop
     return;
@@ -240,24 +254,25 @@ function restartGame() {
   );
   // hide restart button/text
   restartBtn.style.display = "none";
-  restartText.style.display = "none";
+  endScreen.style.display = "none";
+  endScreenBlob.style.display = "none";
 }
 
 // if user clicks on 'restart' button call restart game
 restartBtn.addEventListener("click", (e) => {
   restartGame();
 });
-restartText.addEventListener("click", (e) => {
-  restartGame();
-});
+// endScreen.addEventListener("click", (e) => {
+//   restartGame();
+// });
 
 // if user taps on 'restart' button call restart game
 restartBtn.addEventListener("touchstart", (e) => {
   restartGame();
 });
-restartText.addEventListener("touchstart", (e) => {
-  restartGame();
-});
+// endScreen.addEventListener("touchstart", (e) => {
+//   restartGame();
+// });
 
 // call 60 times a second
 setInterval(game, 1000 / 60);

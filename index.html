@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="restartBlob" id="restartBtn">
+    <div class="restartBlob" id="endScreenBlob">
       <svg
         viewBox="0 0 800 500"
         preserveAspectRatio="none"
@@ -71,8 +71,19 @@
         </g>
       </svg>
     </div>
-    <div class="textInsideBlob" id="restartText">Restart?</div>
-
+    <div class="insideBlobDiv" id="endScreen">
+      <div class="insideBlobProperties">
+        <div class="row noMargin score">
+          <div id="userScore">0</div>
+          <div id="highScore">0</div>
+        </div>
+        <div class="row noMargin scoreText">
+          <div>Your Score</div>
+          <div>High Score</div>
+        </div>
+        <button class="restartBtn" id="restartBtn">Restart?</button>
+      </div>
+    </div>
     <canvas id="Submarine-Game"></canvas>
     <script src="./javascript/index.js" type="module"></script>
   </body>

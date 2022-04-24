@@ -81,7 +81,7 @@ export default class UI {
       ctx.fillText(
         "Game Over!",
         this.canvas.width / 3.5,
-        this.canvas.height / 3.2
+        this.canvas.height / 4
       );
       // game over screen if on desktop
     } else {
