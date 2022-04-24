@@ -262,17 +262,11 @@ function restartGame() {
 restartBtn.addEventListener("click", (e) => {
   restartGame();
 });
-// endScreen.addEventListener("click", (e) => {
-//   restartGame();
-// });
 
 // if user taps on 'restart' button call restart game
 restartBtn.addEventListener("touchstart", (e) => {
   restartGame();
 });
-// endScreen.addEventListener("touchstart", (e) => {
-//   restartGame();
-// });
 
 // call 60 times a second
 setInterval(game, 1000 / 60);

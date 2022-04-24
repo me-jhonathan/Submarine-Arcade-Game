@@ -57,7 +57,8 @@ body {
 .restartBtn {
   margin-top: 5px;
   background-color: blue;
-  margin-left: 50px;
+  margin-left: 20%;
+  margin-right: 30%;
   border: none;
   border-radius: 8px;
   color: white;
